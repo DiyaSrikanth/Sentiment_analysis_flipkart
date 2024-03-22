@@ -3,7 +3,6 @@ import sklearn
 import joblib
 from clean import clean
 import pandas as pd
-import xgboost
 
 reviews= pd.read_csv('review_record.csv')
 review_vibe=list(reviews['0'])
@@ -26,7 +25,7 @@ def predict():
     rev=[]
     if (review != None) and (review != ''):
         review_clean = clean(review)
-        model =joblib.load("best_models_word2vec/SVC.pkl")
+        model =joblib.load("best_models_word2vec/logistic_regression.pkl")
         pred=model.predict([review_clean])
         for y in pred:
             review_vibe.append(y)
