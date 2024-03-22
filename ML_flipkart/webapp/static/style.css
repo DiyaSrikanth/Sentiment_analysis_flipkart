@@ -1,0 +1,108 @@
+*
+{
+    margin:0;
+    padding :0;
+    color:rgb(12, 45, 59);
+    box-sizing: border-box;
+    font-family: monospace;
+    border-block-end-color: #a2d0fc;
+}
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+    flex-direction: column;
+    background: #bce5ff;
+    border-spacing: 20px;
+    border-collapse: separate;
+}
+.inputBox
+{
+    position:relative;
+    left:0;
+    width: 50%;
+
+}
+
+.inputBox input
+{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 224, 224, alpha);
+    background: #feffff;
+    border-radius: 5px;
+    outline: None;
+    color: #11569b;
+    font-size: 1em;
+}
+.inputBox span 
+{
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    transition: 0.5s
+}
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span
+{
+    color: #000000;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding : 0 10px;
+    background: #fcfeff ;
+    border-block: 1px solid #11569b
+}
+button
+{
+    background-color: #6dc2ff;
+    left:0;
+    color: #000000;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin:10px;
+    font-size: solid;
+    text-transform:uppercase;
+}
+h3
+{
+    padding: 10px;
+    background-color: #bcf1fd;
+
+}
+
+.ct-series-a .ct-slice-donut {
+    stroke: rgb(147, 232, 255) !important; 
+    stroke-width: 5px;  
+    color:5px solid rgb(0, 0, 0);
+   
+}
+
+.ct-series-b .ct-slice-donut {
+    stroke: rgb(17, 106, 135) !important; 
+    stroke-width: 5px;
+}
+
+.ct-chart .ct-label {
+    font-size: 40px; /* Change font size */
+    fill: rgb(0, 0, 0); /* Change font color */
+}
+
+
+.ct-chart {
+    
+    width: 300px;
+    height: 300px;
+    margin:30px;
+    padding-top: 200px;
+    color:10px solid rgb(0, 0, 0);
+}

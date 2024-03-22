@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class = 'inputBox'>
+    <h1>Review analysis - NLP</h1></br>
+    <form action = '/prediction' method = POST autocomplete="off">
+        <input type="text" name="review_predict" >
+        <span>Your review</span>
+        </div>
+        <button>Predict</button>
+        {% if pred == 0 %}
+        <h3>Negative review</h3>
+        {% endif %}
+        {% if pred == 1%}
+        <h3>Positive review</h3>
+        {% endif %}
+       
+    </form>
+    </br>
+</div>
+    <div class="ct-chart ct-perfect-fourth"></div>
+
+
+    <script>
+        var chart = new Chartist.Pie('.ct-chart', {
+        series: {{count | safe}},
+        labels: {{rev | safe }}
+        }, {
+        donut: true,
+        donutWidth: 42,
+        showLabel: true,
+        labelOffset: 10,
+        });
+
+
+
+        chart.on('draw', function(data) {
+        if(data.type === 'slice') {
+            // Get the total path length in order to use for dash array animation
+            var pathLength = data.element._node.getTotalLength();
+
+            // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+            data.element.attr({
+            'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+            });
+
+            // Create animation definition while also assigning an ID to the animation for later sync usage
+            var animationDefinition = {
+            'stroke-dashoffset': {
+                id: 'anim' + data.index,
+                dur: 1000,
+                from: -pathLength + 'px',
+                to:  '0px',
+                easing: Chartist.Svg.Easing.easeOutQuint,
+                // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                fill: 'freeze'
+            }
+            };
+
+            // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+            if(data.index !== 0) {
+            animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+            }
+
+            // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+            data.element.attr({
+            'stroke-dashoffset': -pathLength + 'px'
+            });
+
+            // We can't use guided mode as the animations need to rely on setting begin manually
+            // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+            data.element.animate(animationDefinition, false);
+        }
+        });
+
+        // // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+        // chart.on('created', function() {
+        // if(window.__anim21278907124) {
+        //     clearTimeout(window.__anim21278907124);
+        //     window.__anim21278907124 = null;
+        // }
+        // window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
+        // });
+
+      
+    </script>
+    <h3>Stats of all reviews recieved: recorded as 'positive' or 'negative'</h3>
+
+
+</br>
+<script>
+    if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
+
+
+       
+    
+</body>
+</html>
